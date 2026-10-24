@@ -32,7 +32,7 @@ test('language switch preserves administrator page, toggle state and dialog', ()
  fireEvent.click(view.getByText('> 接受用户协议并登录')); finish();
  fireEvent.click(view.getByText('> 设施控制')); finish();
  fireEvent.click(view.getByText('> 气闸 [A]'));
- expect(view.getByText('错误！需要管理员授权。')).toBeTruthy();
+ expect(view.getByRole('dialog')).toBeTruthy();
  fireEvent.keyDown(document, {key:'Escape'});
  fireEvent.click(view.getByText('> 气闸 [A]'), {shiftKey:true}); finish();
  fireEvent.click(view.getByText('> 2号停靠舱 :: 已解锁'));
@@ -50,4 +50,27 @@ test('language switch preserves administrator page, toggle state and dialog', ()
  fireEvent.click(view.getByText('重启终端')); finish();
  expect(view.getByText('> 接受用户协议并登录')).toBeTruthy();
  cleanup(); jest.useRealTimers();
+});
+
+test('administrator password rejects wrong and incomplete values, unlocks and cancels', () => {
+ jest.useFakeTimers();
+ const view=render(<App/>);const finish=()=>act(()=>{jest.runAllTimers();});finish();
+ fireEvent.click(view.getByText('> 接受用户协议并登录'));finish();
+ fireEvent.click(view.getByText('> 设施控制'));finish();
+ fireEvent.click(view.getByText('> 系统 [A]'));
+ const input=view.getByLabelText('管理员密码');
+ for (const password of ['wrong','YPCL44414']) {
+  fireEvent.change(input,{target:{value:password}});fireEvent.submit(input.closest('form'));
+  expect(view.getByRole('alert').textContent).toContain('密码错误');
+  expect(view.getByText('设施控制')).toBeTruthy();
+ }
+ fireEvent.change(input,{target:{value:'YPCL44414.'}});
+ fireEvent.change(view.getByDisplayValue('简体中文'),{target:{value:'en'}});
+ expect((view.getByLabelText('Administrator password') as HTMLInputElement).value).toBe('YPCL44414.');
+ fireEvent.submit(view.getByLabelText('Administrator password').closest('form'));finish();
+ expect(view.getByText('> LIFE SUPPORT')).toBeTruthy();expect(view.queryByRole('dialog')).toBeNull();
+ fireEvent.click(view.getByText('< BACK'));finish();
+ fireEvent.click(view.getByText('> AIRLOCKS [A]'));
+ fireEvent.click(view.getByText('Cancel'));expect(view.queryByRole('dialog')).toBeNull();
+ expect(view.getByText('Controls')).toBeTruthy();cleanup();jest.useRealTimers();
 });

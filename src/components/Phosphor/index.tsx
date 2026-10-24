@@ -15,6 +15,7 @@ import Prompt, { PROMPT_DEFAULT } from "../Prompt";
 import Toggle from "../Toggle";
 
 import Modal from "../Modal";
+import AdminPassword from "../AdminPassword";
 import Scanlines from "../Scanlines";
 
 // for different content, edit sample.json, or,
@@ -22,6 +23,7 @@ import Scanlines from "../Scanlines";
 
 
 interface AppState {
+    adminTarget: string;
     screens: Screen[];
     dialogs: any[];
     activeScreenId: string;
@@ -101,6 +103,7 @@ class Phosphor extends Component<any, AppState> {
         this._containerRef = React.createRef<HTMLElement>();
 
         this.state = {
+            adminTarget: null,
             screens: [],
             dialogs: [],
             activeScreenId: null,
@@ -170,7 +173,7 @@ class Phosphor extends Component<any, AppState> {
         const dialogs = (this.props.data.dialogs || []).map((source: any) => this._buildDialog(source));
         this.setState({ screens, dialogs, activeScreenId: activeScreen.id,
             activeElementId: null, status: AppStatus.Done,
-            activeDialogId: dialogs.some((dialog: Dialog) => dialog.id === this.state.activeDialogId) ? this.state.activeDialogId : null,
+            activeDialogId: (this.state.activeDialogId === "__admin__" || dialogs.some((dialog: Dialog) => dialog.id === this.state.activeDialogId)) ? this.state.activeDialogId : null,
         });
     }
 
@@ -740,6 +743,9 @@ class Phosphor extends Component<any, AppState> {
             return null;
         }
 
+        if (activeDialogId === "__admin__") {
+            return <AdminPassword onClose={this._closeAdmin} onUnlock={this._unlockAdmin} />;
+        }
         const dialog = dialogs.find(element => element.id === activeDialogId);
         if (!dialog) {
             return null;
@@ -766,6 +772,13 @@ class Phosphor extends Component<any, AppState> {
         // }
     }
 
+    private _closeAdmin = (): void => { this.setState({ activeDialogId: null, adminTarget: null }); };
+    private _unlockAdmin = (): void => {
+        const target = this.state.adminTarget;
+        this._closeAdmin();
+        if (target) this._changeScreen(target);
+    };
+
     private _handleLinkClick(target: string | any[], shiftKey: boolean): void {
         // if it's a string, it's a screen
         if (typeof target === "string") {
@@ -776,6 +789,10 @@ class Phosphor extends Component<any, AppState> {
         // otherwise, it's a LinkTarget array
         const linkTarget = (target as any[]).find(element => element.shiftKey === shiftKey);
         if (linkTarget) {
+            if (linkTarget.type === "password") {
+                this.setState({ adminTarget: linkTarget.target, activeDialogId: "__admin__" });
+                return;
+            }
             // perform the appropriate action based on type
             // TODO: type-check the object
             if (linkTarget.type === "dialog") {

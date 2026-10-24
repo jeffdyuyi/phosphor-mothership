@@ -32,14 +32,14 @@ const Link: FC<LinkProps> = (props) => {
     };
     const handleTouchEnd = (e: React.TouchEvent<HTMLSpanElement>) => {
         e.preventDefault(); // prevents the click event firing
-        console.log("handleTouchEnd");
+
         onClick && onClick(target, touches > 1);
         touches = 0;
     };
 
     const handleClick = (e: React.MouseEvent<HTMLSpanElement>) => {
         e.preventDefault();
-        console.log("click");
+
         onClick && onClick(target, e.shiftKey);
     };
     const handleRendered = () => (onRendered && onRendered());
@@ -50,6 +50,9 @@ const Link: FC<LinkProps> = (props) => {
     return (
         <span
             className={css}
+            role="button"
+            tabIndex={0}
+            onKeyDown={event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); onClick && onClick(target, event.shiftKey); } }}
             onClick={handleClick}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}

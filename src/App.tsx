@@ -36,7 +36,7 @@ export function validate(data: any) {
  const screens = new Set(data.screens.map((s: any) => s.id));
  const dialogs = new Set((data.dialogs || []).map((d: any) => d.id));
  if(screens.size !== data.screens.length) throw Error("duplicate");
- const target = (action: any) => {if(!action || !["link","dialog","console"].includes(action.type) || (action.type === "link" && !screens.has(action.target)) || (action.type === "dialog" && !dialogs.has(action.target))) throw Error("target");};
+ const target = (action: any) => {if(!action || !["link","dialog","console","password"].includes(action.type) || (["link","password"].includes(action.type) && !screens.has(action.target)) || (action.type === "dialog" && !dialogs.has(action.target))) throw Error("target");};
  data.screens.forEach((s: any) => {
   if(typeof s.id !== "string" || !s.id || s.type !== "screen" || !Array.isArray(s.content) || !s.content.length) throw Error("screen");
   s.content.forEach((e: any) => {

@@ -1,0 +1,8 @@
+.admin-password { z-index: 10; }
+.admin-password .content { width: min(520px, calc(100vw - 32px)); box-sizing: border-box; background: #0b1715; color: inherit; border: 1px solid currentColor; text-shadow: none; font-size: 18px; line-height: 1.65; }
+.admin-password h2 { font-size: 1.15em; margin: 0 0 12px; }
+.admin-password label { display: block; margin: 18px 0 6px; }
+.admin-password input { display: block; box-sizing: border-box; width: 100%; min-height: 48px; font: inherit; color: inherit; background: #030807; border: 1px solid currentColor; padding: 8px; user-select: text; }
+.admin-password .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; margin-top: 20px; }
+.admin-password button { font: inherit; min-height: 44px; padding: 6px 14px; color: inherit; background: transparent; border: 1px solid currentColor; cursor: pointer; }
+.admin-password [role="alert"] { color: #ffbe8b; margin-top: 10px; }

@@ -42,3 +42,21 @@ body {
 .__image__ canvas { max-width: 100%; height: auto; }
 
 .__text__, .__teletype__ { white-space: pre-wrap; }
+
+*, *::before, *::after { box-sizing: border-box; }
+.toolbar > label { min-width: 0; }
+.toolbar button, .toolbar select { min-height: 44px; }
+.__link__, .__toggle__ { min-height: 44px; display: flex; align-items: center; touch-action: manipulation; }
+@media (max-width: 600px) {
+    html, body { font-size: 20px; line-height: 1.65; }
+    .phosphor { padding: 16px; }
+    .toolbar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; padding: 12px 16px; font-size: 16px; }
+    .toolbar > strong, .toolbar > small, .toolbar > .upload { grid-column: 1 / -1; }
+    .toolbar select { display: block; width: 100%; }
+    .toolbar .upload input { max-width: 100%; width: 100%; }
+    .__scanlines__ { opacity: 0.35; }
+    .__modal__ .content { font-size: 18px; line-height: 1.65; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .__scanlines__::before, .__scanlines__::after, .__prompt__.cursor::after { animation: none; }
+}

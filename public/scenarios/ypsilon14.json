@@ -274,8 +274,8 @@
                     "type": "link",
                     "target": [
                         {
-                            "target": "lockedDialog",
-                            "type": "dialog",
+                            "target": "airlocks",
+                            "type": "password",
                             "shiftKey": false
                         },
                         {
@@ -290,8 +290,8 @@
                     "type": "link",
                     "target": [
                         {
-                            "target": "lockedDialog",
-                            "type": "dialog",
+                            "target": "system",
+                            "type": "password",
                             "shiftKey": false
                         },
                         {
