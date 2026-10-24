@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, cleanup } from '@testing-library/react';
+import { render, fireEvent, cleanup, act } from '@testing-library/react';
 import App, { validate } from './App';
 import Prompt from './components/Prompt';
 import zh from './data/ypsilon14.zh-CN.json';
@@ -22,4 +22,32 @@ test('Chinese input and normalized English aliases dispatch the same action', ()
 });
 test('language selection updates document and persists',()=>{
  const view=render(<App/>);fireEvent.change(view.getByDisplayValue('简体中文'),{target:{value:'en'}});expect(document.documentElement.lang).toBe('en');expect(localStorage.getItem('phosphor.language')).toBe('"en"');expect(view.getByText('Restart terminal')).toBeTruthy();
+});
+
+test('language switch preserves administrator page, toggle state and dialog', () => {
+ jest.useFakeTimers();
+ const view = render(<App/>);
+ const finish = () => act(() => { jest.runAllTimers(); });
+ finish();
+ fireEvent.click(view.getByText('> 接受用户协议并登录')); finish();
+ fireEvent.click(view.getByText('> 设施控制')); finish();
+ fireEvent.click(view.getByText('> 气闸 [A]'));
+ expect(view.getByText('错误！需要管理员授权。')).toBeTruthy();
+ fireEvent.keyDown(document, {key:'Escape'});
+ fireEvent.click(view.getByText('> 气闸 [A]'), {shiftKey:true}); finish();
+ fireEvent.click(view.getByText('> 2号停靠舱 :: 已解锁'));
+ expect(view.getByText('> 2号停靠舱 :: 已锁定')).toBeTruthy();
+ fireEvent.change(view.getByDisplayValue('简体中文'), {target:{value:'en'}});
+ expect(view.getByText('Airlocks')).toBeTruthy();
+ expect(view.getByText('> DOCKING BAY 2 :: LOCKED')).toBeTruthy();
+ fireEvent.click(view.getByText('> DOCKING BAY 1 :: LOCKED — ERROR'));
+ expect(view.getByText('ERROR! Lock override in effect.')).toBeTruthy();
+ fireEvent.change(view.getByDisplayValue('English'), {target:{value:'zh-CN'}});
+ expect(view.getByText('气闸')).toBeTruthy();
+ expect(view.getByText('> 2号停靠舱 :: 已锁定')).toBeTruthy();
+ expect(view.getByText('错误！强制锁定已生效。')).toBeTruthy();
+ fireEvent.keyDown(document, {key:'Escape'});
+ fireEvent.click(view.getByText('重启终端')); finish();
+ expect(view.getByText('> 接受用户协议并登录')).toBeTruthy();
+ cleanup(); jest.useRealTimers();
 });

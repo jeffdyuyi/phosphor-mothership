@@ -147,6 +147,33 @@ class Phosphor extends Component<any, AppState> {
         this._parseDialogs();
     }
 
+    public componentDidUpdate(previousProps: any): void {
+        if (previousProps.data === this.props.data) return;
+
+        // Built-in translations share screen IDs and element order. Keep the
+        // current location and selected toggle states while replacing text.
+        const screens = this.props.data.screens.map((source: any) => this._buildScreen(source));
+        const activeScreen = screens.find((screen: Screen) => screen.id === this.state.activeScreenId) || screens[0];
+        screens.forEach((screen: Screen) => {
+            const previous = this.state.screens.find(item => item.id === screen.id);
+            screen.content.forEach((element: ScreenData, index: number) => {
+                element.state = screen === activeScreen ? ScreenDataState.Done : ScreenDataState.Ready;
+                const oldElement = previous && previous.content[index];
+                if (element.type === ScreenDataType.Toggle && oldElement && oldElement.type === ScreenDataType.Toggle) {
+                    const selected = oldElement.states.findIndex((state: any) => state.active);
+                    if (selected >= 0 && selected < element.states.length) {
+                        element.states.forEach((state: any, i: number) => state.active = i === selected);
+                    }
+                }
+            });
+        });
+        const dialogs = (this.props.data.dialogs || []).map((source: any) => this._buildDialog(source));
+        this.setState({ screens, dialogs, activeScreenId: activeScreen.id,
+            activeElementId: null, status: AppStatus.Done,
+            activeDialogId: dialogs.some((dialog: Dialog) => dialog.id === this.state.activeDialogId) ? this.state.activeDialogId : null,
+        });
+    }
+
     // private methods
     private _parseScreens(): void {
         const screens = this.props.data.screens.map((element: any) => {
@@ -298,7 +325,7 @@ class Phosphor extends Component<any, AppState> {
             // if it's active, render it animated
             if (element.state === ScreenDataState.Active) {
                 return (
-                    <div className="active" key={index}>
+                    <div className="active" key={element.id}>
                         {this._renderActiveElement(element, index)}
                     </div>
                 );
@@ -307,7 +334,7 @@ class Phosphor extends Component<any, AppState> {
             // if it's done, render it static
             if (element.state === ScreenDataState.Done) {
                 return (
-                    <div className="rendered" key={index}>
+                    <div className="rendered" key={element.id}>
                         {this._renderStaticElement(element, index)}
                     </div>
                 );

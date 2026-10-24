@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Phosphor from "./components/Phosphor";
 import zhDemo from "./data/sample.zh-CN.json";
 import enDemo from "./data/sample.json";
@@ -15,6 +15,7 @@ export default function App() {
  const zh = lang === "zh-CN";
  document.documentElement.lang = lang;
  const data = scenario === "custom" && custom ? custom : scenario === "demo" ? (zh ? zhDemo : enDemo) : (zh ? zhStation : enStation);
+ const terminalData = useMemo(() => JSON.parse(JSON.stringify(data)), [data]);
  async function upload(file?: File) {
   if(!file) return;
   try { const data = JSON.parse(await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = reject; reader.readAsText(file, "UTF-8"); })); validate(data); setCustom(data); save("phosphor.custom",data); setScenario("custom"); save("phosphor.scenario","custom"); setRevision(revision+1); setError(""); }
@@ -27,8 +28,8 @@ export default function App() {
  <label className="upload">{zh ? "导入 JSON" : "Import JSON"}<input type="file" accept=".json,application/json" onChange={e => {upload(e.target.files && e.target.files[0]);e.target.value="";}} /></label>
  <button onClick={() => {const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="phosphor-"+lang+".json";a.click();URL.revokeObjectURL(url);}}>{zh ? "导出 JSON" : "Export JSON"}</button>
  <button onClick={() => setRevision(revision+1)}>{zh ? "重启终端" : "Restart terminal"}</button>
- <small>{zh ? "本地运行 · 切换将重启当前终端" : "Local · Switching restarts terminal"}</small>
- </nav>{error && <p role="alert">{error}</p>}<Phosphor key={lang+scenario+revision} data={JSON.parse(JSON.stringify(data))}/></>;
+ <small>{zh ? "切换语言保留页面 · 切换剧本重启" : "Language keeps page · Scenario restarts"}</small>
+ </nav>{error && <p role="alert">{error}</p>}<Phosphor key={scenario+revision} data={terminalData}/></>;
 }
 export function validate(data: any) {
  if(!data || !Array.isArray(data.screens) || !data.screens.length || (data.dialogs && !Array.isArray(data.dialogs))) throw Error("screens");
