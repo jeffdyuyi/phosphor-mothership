@@ -35,3 +35,10 @@ body {
         background-color: rgba($alert, 0.75);
     }
 }
+.toolbar { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 16px 24px; font-size: 16px; line-height: 1.8; border-bottom: 1px solid currentColor; }
+.toolbar button, .toolbar select, .toolbar input { font: inherit; color: inherit; background: #101610; border: 1px solid currentColor; padding: 4px 8px; max-width: 100%; }
+.toolbar .upload input { display: block; max-width: 220px; }
+.phosphor { padding: clamp(16px, 3vw, 38px); overflow-wrap: anywhere; }
+.__image__ canvas { max-width: 100%; height: auto; }
+
+.__text__, .__teletype__ { white-space: pre-wrap; }

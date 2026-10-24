@@ -19,7 +19,7 @@ import Scanlines from "../Scanlines";
 
 // for different content, edit sample.json, or,
 // preferrably, create a new JSON and load it here
-import json from "../../data/sample.json";
+
 
 interface AppState {
     screens: Screen[];
@@ -149,7 +149,7 @@ class Phosphor extends Component<any, AppState> {
 
     // private methods
     private _parseScreens(): void {
-        const screens = json.screens.map((element) => {
+        const screens = this.props.data.screens.map((element: any) => {
             return this._buildScreen(element);
         });
 
@@ -165,7 +165,7 @@ class Phosphor extends Component<any, AppState> {
     }
 
     private _parseDialogs(): void {
-        const dialogs = json.dialogs.map((element) => {
+        const dialogs = (this.props.data.dialogs || []).map((element: any) => {
             return this._buildDialog(element);
         });
 
@@ -498,9 +498,9 @@ class Phosphor extends Component<any, AppState> {
         };
 
         if (element.type === ScreenDataType.Text) {
-            // \0 is the ASCII null character to ensure empty lines aren't collapsed
+            // A non-breaking space preserves blank lines with CJK fonts.
             // https://en.wikipedia.org/wiki/Null_character
-            const text = element.text.length ? element.text : "\0";
+            const text = element.text.length ? element.text : "\u00a0";
             return (
                 <Text
                     key={key}

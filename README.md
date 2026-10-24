@@ -1,3 +1,13 @@
+玩家入口：[打开中文版终端](https://jeffdyuyi.github.io/phosphor-mothership/)
+
+# 简体中文版 / Local bilingual edition
+
+本目录已加入简体中文界面、中文指令、剧本导入导出和本地离线启动。请先阅读 [使用说明](使用说明.md)。运行 `npm run build` 后执行 `npm run offline`，或双击 `启动离线终端.cmd`。当前默认载入伊普西龙-14，可在页面切换剧本，无需修改源文件。
+
+以下为原项目说明，涉及默认JSON及输入限制的描述以中文版说明为准。
+
+---
+
 > [!WARNING]
 > This project is based on the now-defunct [Create React App framework](https://github.com/facebook/create-react-app) and is woefully out of date, meaning vulnerable packages have not necessarily been updated. **_USE AT YOUR OWN RISK_**.
 

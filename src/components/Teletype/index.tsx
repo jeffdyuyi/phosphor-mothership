@@ -55,9 +55,10 @@ class Teletype extends Component<TeletypeProps, TeletypeState> {
         const { text, className } = this.props;
         const { char, done, active, } = this.state;
 
-        const visible = text.substr(0, char); // already rendered
-        const cursor = text.substr(char, 1) || " "; // " " ensures the curosr is briefly visible for line breaks
-        const hidden = text.substr(char + 1); // to be rendered
+        const characters = Array.from(text);
+        const visible = characters.slice(0, char).join(""); // already rendered
+        const cursor = characters[char] || " "; // " " ensures the curosr is briefly visible for line breaks
+        const hidden = characters.slice(char + 1).join(""); // to be rendered
 
         if (!active || done) {
             return null;
@@ -176,7 +177,7 @@ class Teletype extends Component<TeletypeProps, TeletypeState> {
         }
 
         // if char is less that the current string, increment it
-        if (char < text.length) {
+        if (char < Array.from(text).length) {
             nextChar = char + 1;
         } else {
             nextActive = false;

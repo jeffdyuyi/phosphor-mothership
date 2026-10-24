@@ -1,0 +1,84 @@
+{
+  "config": {
+    "name": "中文终端演示",
+    "author": "PHOSPHOR"
+  },
+  "screens": [
+    {
+      "id": "screen0",
+      "type": "screen",
+      "content": [
+        "PHOSPHOR / 磷光终端",
+        "欢迎使用本地跑团终端。支持中文输入、剧本导入和中英文切换。",
+        "输入指令：帮助、返回、警报。英文 help、back、alert 同样有效。",
+        {
+          "type": "prompt",
+          "prompt": "请输入指令： ",
+          "commands": [
+            {
+              "command": "帮助",
+              "aliases": [
+                "help"
+              ],
+              "action": {
+                "type": "dialog",
+                "target": "help"
+              }
+            },
+            {
+              "command": "返回",
+              "aliases": [
+                "back"
+              ],
+              "action": {
+                "type": "link",
+                "target": "screen0"
+              }
+            },
+            {
+              "command": "警报",
+              "aliases": [
+                "alert"
+              ],
+              "action": {
+                "type": "dialog",
+                "target": "alarm"
+              }
+            }
+          ]
+        },
+        {
+          "type": "toggle",
+          "states": [
+            {
+              "text": "> 生命维持 :: 开启",
+              "active": true
+            },
+            {
+              "text": "> 生命维持 :: 关闭",
+              "active": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "help",
+      "type": "alert",
+      "content": [
+        "点击选项或输入指令后按回车。中文输入法选词时不会提交指令。",
+        "按回车、Esc或点击关闭弹窗。",
+        "使用上方剧本选择器载入伊普西龙-14。管理员选项可按住Shift点击进入。"
+      ]
+    },
+    {
+      "id": "alarm",
+      "type": "alert",
+      "content": [
+        "警报：检测到未知生命信号。请保持通讯畅通。"
+      ]
+    }
+  ]
+}

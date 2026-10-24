@@ -1,0 +1,644 @@
+{
+  "config": {
+    "name": "伊普西龙-14闹鬼事件",
+    "author": "@redhg"
+  },
+  "screens": [
+    {
+      "id": "screen0",
+      "type": "screen",
+      "content": [
+        "伊普西龙-14",
+        "==========",
+        "",
+        "欢迎来到伊普西龙-14采矿站。本设施归石山动力公司所有。创新始终是我们的首要任务。",
+        "==========",
+        "",
+        {
+          "text": "> 接受用户协议并登录",
+          "type": "link",
+          "target": "menu"
+        }
+      ]
+    },
+    {
+      "id": "menu",
+      "type": "screen",
+      "content": [
+        "主菜单",
+        "=========",
+        "",
+        {
+          "text": "> 空间站地图",
+          "type": "link",
+          "target": "map"
+        },
+        {
+          "text": "> 系统诊断",
+          "type": "link",
+          "target": "diagnostics"
+        },
+        {
+          "text": "> 停靠记录",
+          "type": "link",
+          "target": "schedule"
+        },
+        {
+          "text": "> 人员名册",
+          "type": "link",
+          "target": "roster"
+        },
+        {
+          "text": "> 通讯",
+          "type": "link",
+          "target": "comms"
+        },
+        {
+          "text": "> 设施控制",
+          "type": "link",
+          "target": "controls"
+        }
+      ]
+    },
+    {
+      "id": "map",
+      "type": "screen",
+      "content": [
+        "空间站地图",
+        "===========",
+        "",
+        {
+          "type": "bitmap",
+          "src": "images/station-map.png",
+          "className": "lighten"
+        },
+        "",
+        "地图副本已发送至数据平板。",
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "menu",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "diagnostics",
+      "type": "screen",
+      "content": [
+        "系统诊断",
+        "===========",
+        "",
+        "检查生命维持系统……完成。",
+        "检查主系统……完成。",
+        "",
+        {
+          "text": "警告：通风量为82.4%。请检查船员舱通风口是否堵塞。",
+          "className": "alert",
+          "type": "text"
+        },
+        {
+          "text": "警告：5号淋浴器已故障1天。",
+          "className": "alert",
+          "type": "text"
+        },
+        "",
+        "提示：距上次更换空气滤芯已过455天。",
+        "提示：距上次维护矿井升降机已过455天。",
+        "",
+        "===========",
+        "",
+        "诊断摘要：",
+        "所有系统均在允许参数范围内运行。",
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "menu",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "schedule",
+      "type": "screen",
+      "content": [
+        "停靠记录",
+        "========",
+        "",
+        "停靠舱活动记录（过去6个月）：",
+        "",
+        "2366-06-12.0633 - 停靠舱 2 : 抵达 :: 暴风号",
+        "2366-04-29.0834 - 停靠舱 1 : 抵达 :: 赫拉克勒斯号",
+        "2366-03-02.1223 - 停靠舱 2 : 离港 :: 基拉戈号",
+        "2366-02-20.1604 - 停靠舱 2 : 抵达 :: 基拉戈号",
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "menu",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "roster",
+      "type": "screen",
+      "content": [
+        "人员名册",
+        "======",
+        "",
+        "01. 索尼娅·范霍文   :: 管理员",
+        "02. 阿什拉夫·辛格   :: 碎矿工",
+        "03. 达娜·德比尔斯   :: 钻探主管",
+        "04. 杰罗姆·查茨克尔 :: 钻探助手",
+        "05. 罗莎·托宾       :: 工程师",
+        "06. 米哈伊尔·拉迪米尔 :: 总工程师",
+        "07. 健二·勘太郎     :: 装卸工",
+        "08. 摩根·鲍         :: 装卸工",
+        "09. 里·内克塔里奥斯 :: 装卸工",
+        "10. 空缺",
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "menu",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "comms",
+      "type": "screen",
+      "content": [
+        "通讯",
+        "=====",
+        "",
+        "附近检测到2艘飞船。",
+        "",
+        {
+          "text": "> 呼叫暴风号",
+          "target": "hailtempest",
+          "type": "link"
+        },
+        {
+          "text": "> 呼叫赫拉克勒斯号",
+          "target": "hailherecles",
+          "type": "link"
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "menu",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "hailtempest",
+      "type": "screen",
+      "content": [
+        "正在发送",
+        "============",
+        "",
+        "..........................................",
+        "..........................................",
+        "",
+        "通讯频道已接通",
+        "",
+        "======",
+        "",
+        {
+          "text": "< 关闭频道",
+          "target": "comms",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "hailherecles",
+      "type": "screen",
+      "content": [
+        "正在发送",
+        "============",
+        "",
+        "..........................................",
+        "..........................................",
+        "..........................................",
+        "..........................................",
+        "",
+        {
+          "type": "text",
+          "className": "alert",
+          "text": "无回应"
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "comms",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "controls",
+      "type": "screen",
+      "content": [
+        "设施控制",
+        "========",
+        "",
+        "[A] :: 仅限管理员访问",
+        "",
+        {
+          "text": "> 淋浴设施",
+          "target": "showers",
+          "type": "link"
+        },
+        {
+          "text": "> 水培实验室",
+          "target": "greenhouse",
+          "type": "link"
+        },
+        {
+          "text": "> 气闸 [A]",
+          "type": "link",
+          "target": [
+            {
+              "target": "lockedDialog",
+              "type": "dialog",
+              "shiftKey": false
+            },
+            {
+              "target": "airlocks",
+              "type": "link",
+              "shiftKey": true
+            }
+          ]
+        },
+        {
+          "text": "> 系统 [A]",
+          "type": "link",
+          "target": [
+            {
+              "target": "lockedDialog",
+              "type": "dialog",
+              "shiftKey": false
+            },
+            {
+              "target": "system",
+              "type": "link",
+              "shiftKey": true
+            }
+          ]
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "menu",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "airlocks",
+      "type": "screen",
+      "content": [
+        "气闸",
+        "========",
+        "",
+        {
+          "type": "link",
+          "text": "> 1号停靠舱 :: 已锁定——故障",
+          "className": "alert",
+          "target": [
+            {
+              "target": "airlockError",
+              "type": "dialog",
+              "shiftKey": false
+            }
+          ]
+        },
+        {
+          "type": "toggle",
+          "states": [
+            {
+              "text": "> 2号停靠舱 :: 已解锁",
+              "active": true
+            },
+            {
+              "text": "> 2号停靠舱 :: 已锁定",
+              "active": false
+            }
+          ]
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "controls",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "showers",
+      "type": "screen",
+      "content": [
+        "淋浴设施",
+        "=======",
+        "",
+        {
+          "type": "toggle",
+          "states": [
+            {
+              "text": "> 1号淋浴器 :: 关闭",
+              "active": true
+            },
+            {
+              "text": "> 1号淋浴器 :: 开启",
+              "active": false
+            }
+          ]
+        },
+        {
+          "type": "toggle",
+          "states": [
+            {
+              "text": "> 2号淋浴器 :: 关闭",
+              "active": true
+            },
+            {
+              "text": "> 2号淋浴器 :: 开启",
+              "active": false
+            }
+          ]
+        },
+        {
+          "type": "toggle",
+          "states": [
+            {
+              "text": "> 3号淋浴器 :: 关闭",
+              "active": true
+            },
+            {
+              "text": "> 3号淋浴器 :: 开启",
+              "active": false
+            }
+          ]
+        },
+        {
+          "type": "toggle",
+          "states": [
+            {
+              "text": "> 4号淋浴器 :: 关闭",
+              "active": true
+            },
+            {
+              "text": "> 4号淋浴器 :: 开启",
+              "active": false
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "className": "alert",
+          "text": "> 5号淋浴器 :: 故障"
+        },
+        {
+          "type": "toggle",
+          "states": [
+            {
+              "text": "> 6号淋浴器 :: 关闭",
+              "active": true
+            },
+            {
+              "text": "> 6号淋浴器 :: 开启",
+              "active": false
+            }
+          ]
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "controls",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "greenhouse",
+      "type": "screen",
+      "content": [
+        "水培实验室",
+        "===============",
+        "",
+        {
+          "type": "toggle",
+          "states": [
+            {
+              "text": "> 喷雾供水系统 :: 关闭",
+              "active": true
+            },
+            {
+              "text": "> 喷雾供水系统 :: 开启",
+              "active": false
+            }
+          ]
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "controls",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "system",
+      "type": "screen",
+      "content": [
+        "系统",
+        "======",
+        "",
+        {
+          "text": "> 生命维持",
+          "target": "lifesupport",
+          "type": "link"
+        },
+        {
+          "text": "> 自毁程序",
+          "target": "selfdestruct",
+          "type": "link"
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "controls",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "lifesupport",
+      "type": "screen",
+      "content": [
+        "生命维持",
+        "============",
+        "",
+        {
+          "type": "text",
+          "className": "alert",
+          "text": "警告：关闭生命维持系统违反公司第2778-A号规定。石山动力公司对不当使用本功能所造成的后果概不负责。"
+        },
+        "",
+        {
+          "type": "toggle",
+          "states": [
+            {
+              "text": "> 生命维持 :: 已启用",
+              "active": true
+            },
+            {
+              "text": "> 生命维持 :: 已停用",
+              "active": false
+            }
+          ]
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "system",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "selfdestruct",
+      "type": "screen",
+      "content": [
+        "自毁程序",
+        "=============",
+        "",
+        {
+          "type": "text",
+          "className": "alert",
+          "text": "警告：损毁公司财产违反公司第2778-B号规定。石山动力公司对不当使用本功能所造成的后果概不负责。"
+        },
+        "",
+        {
+          "text": "> 启动自毁程序",
+          "target": "activateeslfdestruct",
+          "type": "link"
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "system",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "activateeslfdestruct",
+      "type": "screen",
+      "content": [
+        "启动自毁程序",
+        "======================",
+        "",
+        {
+          "type": "text",
+          "className": "alert",
+          "text": "此操作将启动空间站自毁程序，倒计时10分钟。"
+        },
+        "",
+        {
+          "type": "text",
+          "className": "alert",
+          "text": "此操作无法撤销。"
+        },
+        "",
+        {
+          "type": "prompt",
+          "prompt": "输入“确认”启动倒计时： ",
+          "className": "alert cursor",
+          "commands": [
+            {
+              "command": "确认",
+              "action": {
+                "type": "link",
+                "target": "evacuate"
+              },
+              "aliases": [
+                "ok"
+              ]
+            }
+          ]
+        },
+        "",
+        "======",
+        "",
+        {
+          "text": "< 返回",
+          "target": "selfdestruct",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "id": "evacuate",
+      "type": "screen",
+      "content": [
+        {
+          "type": "text",
+          "className": "alert",
+          "text": "自毁程序已启动。"
+        },
+        {
+          "type": "text",
+          "className": "alert",
+          "text": "请尽快撤离。"
+        }
+      ]
+    }
+  ],
+  "dialogs": [
+    {
+      "id": "lockedDialog",
+      "type": "alert",
+      "content": [
+        "错误！需要管理员授权。"
+      ]
+    },
+    {
+      "id": "airlockError",
+      "type": "alert",
+      "content": [
+        "错误！强制锁定已生效。",
+        "",
+        "无法远程解锁，需要现场手动处理。"
+      ]
+    }
+  ]
+}

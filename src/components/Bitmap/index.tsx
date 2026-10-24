@@ -64,6 +64,13 @@ class Bitmap extends Component<BitmapProps, BitmapState> {
         this._loadImage();
     }
 
+    public componentWillUnmount(): void {
+        this._clearAnimationTimer();
+        const image = this.state.image;
+        image.onload = null;
+        image.onerror = null;
+    }
+
     private _resampleImage(resolution: number): void {
         const { image, } = this.state;
         const canvas = this._canvasRef.current;
@@ -131,6 +138,7 @@ class Bitmap extends Component<BitmapProps, BitmapState> {
                     onComplete && onComplete();
                 }
             };
+            image.onerror = () => { this.setState({ loading: false }); onComplete && onComplete(); };
             image.src = src;
         }
     }
